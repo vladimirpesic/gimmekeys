@@ -1,0 +1,48 @@
+{
+  "expo": {
+    "jsEngine": "hermes",
+    "name": "GimmeKeys",
+    "version": "2.3.0",
+    "slug": "gimmekeys",
+    "icon": "./assets/icon.png",
+    "assetBundlePatterns": ["**/*"],
+    "splash": {
+      "backgroundColor": "#3b82f6",
+      "image": "./assets/splash.png"
+    },
+    "android": {
+      "versionCode": 1,
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/icon.png"
+      },
+      "icon": "./assets/icon.png",
+      "splash": {
+        "backgroundColor": "#3b82f6",
+        "image": "./assets/splash.png"
+      },
+      "googleServicesFile": "./google-services.json",
+      "package": "com.gimmekeys"
+    },
+    "ios": {
+      "buildNumber": "2.3.0",
+      "supportsTablet": true,
+      "icon": "./assets/icon.png",
+      "splash": {
+        "backgroundColor": "#3b82f6",
+        "image": "./assets/splash.png",
+        "tabletImage": "./assets/splash-tablet.png"
+      },
+      "bundleIdentifier": "com.gimmekeys"
+    },
+    "plugins": ["expo-localization", "./plugins/usesCleartextTraffic"],
+    "owner": "aelassas",
+    "extra": {
+      "eas": {
+        "projectId": "fe1ab335-41ae-4a35-960b-0052b493db49"
+      }
+    },
+    "updates": {
+      "url": "https://exp.host/@aelassas/gimmekeys"
+    }
+  }
+}

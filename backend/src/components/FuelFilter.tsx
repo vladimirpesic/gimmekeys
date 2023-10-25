@@ -1,0 +1,149 @@
+import React, { useState, useEffect, useRef } from 'react'
+import * as gimmekeysTypes from 'gimmekeys-types'
+import * as gimmekeysHelper from 'gimmekeys-helper'
+import { strings as commonStrings } from '../lang/common'
+import { strings } from '../lang/cars'
+import Accordion from './Accordion'
+
+import '../assets/css/fuel-filter.css'
+
+interface FuelFilterProps {
+  className?: string
+  onChange?: (values: gimmekeysTypes.CarType[]) => void
+}
+
+function FuelFilter({
+  className,
+  onChange
+}: FuelFilterProps) {
+  const [allChecked, setAllChecked] = useState(true)
+  const [values, setValues] = useState([gimmekeysTypes.CarType.Diesel, gimmekeysTypes.CarType.Gasoline])
+
+  const dieselRef = useRef<HTMLInputElement>(null)
+  const gasolineRef = useRef<HTMLInputElement>(null)
+
+  useEffect(() => {
+    if (allChecked && dieselRef.current && gasolineRef.current) {
+      dieselRef.current.checked = true
+      gasolineRef.current.checked = true
+    }
+  }, [allChecked])
+
+  const handleCheckDieselChange = (e: React.ChangeEvent<HTMLInputElement> | React.MouseEvent<HTMLElement>) => {
+    if ('checked' in e.currentTarget && e.currentTarget.checked) {
+      values.push(gimmekeysTypes.CarType.Diesel)
+
+      if (values.length === 2) {
+        setAllChecked(true)
+      }
+    } else {
+      values.splice(
+        values.findIndex((v) => v === gimmekeysTypes.CarType.Diesel),
+        1,
+      )
+
+      if (values.length === 0) {
+        setAllChecked(false)
+      }
+    }
+
+    setValues(values)
+
+    if (onChange) {
+      onChange(gimmekeysHelper.clone(values))
+    }
+  }
+
+  const handleDieselClick = (e: React.MouseEvent<HTMLElement>) => {
+    const checkbox = e.currentTarget.previousSibling as HTMLInputElement
+    checkbox.checked = !checkbox.checked
+    const event = e
+    event.currentTarget = checkbox
+    handleCheckDieselChange(event)
+  }
+
+  const handleCheckGasolineChange = (e: React.ChangeEvent<HTMLInputElement> | React.MouseEvent<HTMLElement>) => {
+    if ('checked' in e.currentTarget && e.currentTarget.checked) {
+      values.push(gimmekeysTypes.CarType.Gasoline)
+
+      if (values.length === 2) {
+        setAllChecked(true)
+      }
+    } else {
+      values.splice(
+        values.findIndex((v) => v === gimmekeysTypes.CarType.Gasoline),
+        1,
+      )
+
+      if (values.length === 0) {
+        setAllChecked(false)
+      }
+    }
+
+    setValues(values)
+
+    if (onChange) {
+      onChange(gimmekeysHelper.clone(values))
+    }
+  }
+
+  const handleGasolineClick = (e: React.MouseEvent<HTMLElement>) => {
+    const checkbox = e.currentTarget.previousSibling as HTMLInputElement
+    checkbox.checked = !checkbox.checked
+    const event = e
+    event.currentTarget = checkbox
+    handleCheckGasolineChange(event)
+  }
+
+  const handleUncheckAllChange = () => {
+    if (allChecked) {
+      // uncheck all
+      if (dieselRef.current) {
+        dieselRef.current.checked = false
+      }
+      if (gasolineRef.current) {
+        gasolineRef.current.checked = false
+      }
+      setAllChecked(false)
+      setValues([])
+    } else {
+      // check all
+      if (dieselRef.current) {
+        dieselRef.current.checked = true
+      }
+      if (gasolineRef.current) {
+        gasolineRef.current.checked = true
+      }
+      const _values = [gimmekeysTypes.CarType.Diesel, gimmekeysTypes.CarType.Gasoline]
+
+      setAllChecked(true)
+      setValues(_values)
+
+      if (onChange) {
+        onChange(gimmekeysHelper.clone(_values))
+      }
+    }
+  }
+
+  return (
+    <Accordion title={strings.ENGINE} className={`${className ? `${className} ` : ''}fuel-filter`}>
+      <div className="filter-elements">
+        <div className="filter-element">
+          <input ref={dieselRef} type="checkbox" className="fuel-checkbox" onChange={handleCheckDieselChange} />
+          <span role="button" tabIndex={0} onClick={handleDieselClick}>{strings.DIESEL}</span>
+        </div>
+        <div className="filter-element">
+          <input ref={gasolineRef} type="checkbox" className="fuel-checkbox" onChange={handleCheckGasolineChange} />
+          <span role="button" tabIndex={0} onClick={handleGasolineClick}>{strings.GASOLINE}</span>
+        </div>
+      </div>
+      <div className="filter-actions">
+        <span role="button" tabIndex={0} onClick={handleUncheckAllChange} className="uncheckall">
+          {allChecked ? commonStrings.UNCHECK_ALL : commonStrings.CHECK_ALL}
+        </span>
+      </div>
+    </Accordion>
+  )
+}
+
+export default FuelFilter

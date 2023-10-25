@@ -1,0 +1,15 @@
+[Unit]
+Description=GimmeKeys API
+Wants=mongod.service
+After=mongod.service
+
+[Service]
+ExecStart=/usr/bin/npm start
+WorkingDirectory=/opt/gimmekeys/api
+Type=simple
+Restart=always
+StandardOutput=append:/var/log/gimmekeys.log
+StandardError=append:/var/log/gimmekeys.log
+
+[Install]
+WantedBy=multi-user.target
