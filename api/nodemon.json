@@ -1,6 +1,6 @@
 {
-    "watch": ["src"],
-    "ext": "ts",
-    "ignore": [],
-    "exec": "npx ts-node-esm --experimentalSpecifierResolution node ./src"
-  }
+  "watch": ["src"],
+  "ext": "ts",
+  "ignore": [],
+  "exec": "node --experimental-loader=ts-node/esm --experimental-specifier-resolution=node ./src"
+}
