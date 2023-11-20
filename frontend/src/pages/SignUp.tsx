@@ -379,7 +379,7 @@ function SignUp() {
                   <table>
                     <tbody>
                       <tr>
-                        <td>
+                        <td aria-label="checkbox">
                           <Checkbox checked={tosChecked} onChange={handleTosChange} color="primary" />
                         </td>
                         <td>
