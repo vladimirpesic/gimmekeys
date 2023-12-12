@@ -20,7 +20,7 @@ services:
     environment:
       # Provide your credentials here
       MONGO_INITDB_ROOT_USERNAME: admin
-      MONGO_INITDB_ROOT_PASSWORD: 478163
+      MONGO_INITDB_ROOT_PASSWORD: secret
     ports:
       - 27017:27017
 
