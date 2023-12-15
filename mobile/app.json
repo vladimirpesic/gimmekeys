@@ -35,7 +35,7 @@
       "bundleIdentifier": "com.gimmekeys"
     },
     "plugins": ["expo-localization", "./plugins/usesCleartextTraffic"],
-    "owner": "aelassas",
+    "owner": "vladimirpesic",
     "extra": {
       "eas": {
         "projectId": "fe1ab335-41ae-4a35-960b-0052b493db49"
