@@ -1205,7 +1205,7 @@ export async function deleteUsers(req: Request, res: Response) {
 
       if (user) {
         await User.deleteOne({ _id: id })
-        
+
         if (user.avatar) {
           const avatar = path.join(env.CDN_USERS, user.avatar)
           if (await Helper.exists(avatar)) {
